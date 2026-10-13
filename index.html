@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Athila Taher Mahmoud | Portfolio</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            scientific: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+            },
+            cyber: {
+              50: '#f0fdfa',
+              500: '#14b8a6',
+              600: '#0d9488',
+            },
+            ai: {
+              500: '#6366f1',
+              600: '#4f46e5',
+            },
+            obsidian: {
+              950: '#070a11',
+              900: '#0b0f19',
+              850: '#0f172a',
+              800: '#1e293b',
+              700: '#334155',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+            arabic: ['"Cairo"', '"Tajawal"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- React & Babel CDNs -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    html[dir="rtl"] {
+      font-family: 'Cairo', 'Tajawal', sans-serif;
+    }
+    html[dir="ltr"] {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    .dark .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(51, 65, 85, 0.45);
+    }
+    .glass-panel-hover {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-panel-hover:hover {
+      transform: translateY(-2px);
+      border-color: rgba(16, 185, 129, 0.4);
+      box-shadow: 0 12px 30px -10px rgba(16, 185, 129, 0.15);
+    }
+    .dark .glass-panel-hover:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      box-shadow: 0 12px 30px -10px rgba(16, 185, 129, 0.25);
+    }
+    .scientific-grid {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+    }
+    .dark .scientific-grid {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.3);
+      border-radius: 9999px;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: rgba(71, 85, 105, 0.5);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-[#070a11] dark:text-slate-100 transition-colors duration-300 antialiased selection:bg-emerald-500/20 selection:text-emerald-400">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, createContext, useContext } = React;
+
+    /* --- TRANSLATION DATA --- */
+    const translations = {
+      en: {
+        nav: {
+          brand: "Athila T. Mahmoud",
+          role: "Biochemistry & AI/Data Science",
+          about: "Overview",
+          experience: "Experience & Labs",
+          education: "Education & Certs",
+          skills: "Technical Skills",
+          contact: "Contact",
+          resume: "Download CV",
+          toggleTheme: "Toggle theme",
+          toggleLang: "Switch to Arabic",
+          statusBadge: "Available for Biomedical & AI Research"
+        },
+        hero: {
+          greeting: "Hello, I am",
+          name: "Athila Taher Mahmoud",
+          titlePrefix: "Bridging",
+          titleBiochem: "Molecular Biochemistry",
+          titleAnd: "&",
+          titleAI: "Artificial Intelligence",
+          subtitle: "Senior Chemistry & Biochemistry student at Cairo University. Pioneer in combining hands-on wet-lab molecular diagnostics, vaccine research, and pharmaceutical QC with computational data science and machine learning.",
+          primaryBtn: "Explore Experience",
+          secondaryBtn: "View Credentials",
+          contactBtn: "Get in Touch",
+          copyEmail: "Copy Email",
+          emailCopied: "Email copied to clipboard!",
+          keyDisciplines: "Core Intersections",
+          badge1: "Wet-Lab Molecular Diagnostics",
+          badge2: "AI & Machine Learning (DEPI)",
+          badge3: "Vaccine & Bioprocess QC"
+        },
+        metrics: {
+          internships: { value: "5+", label: "Scientific Internships", sub: "NRC, DEPI, VSVRI, CID & Medics" },
+          institution: { value: "Cairo Univ.", label: "Senior Academic Standing", sub: "B.Sc. Chemistry & Biochemistry" },
+          techDomain: { value: "AI & Data", label: "DEPI Certified Specialist", sub: "MCIT Machine Learning Program" },
+          methodologies: { value: "100%", label: "Dual Lab Competency", sub: "Wet-Lab Assay & Computational Analysis" }
+        },
+        experience: {
+          sectionTag: "Hands-on Career Track",
+          title: "Experience & Laboratory Training",
+          subtitle: "Demonstrated technical versatility across premier national research facilities, pharmaceutical manufacturers, and AI technology initiatives.",
+          filterAll: "All Fields",
+          filterAI: "AI & Data Science",
+          filterMolecular: "Molecular Diagnostics",
+          filterPharma: "Pharma & Vaccine QC",
+          filterEducation: "Instruction",
+          items: [
+            {
+              id: "depi",
+              category: "ai",
+              role: "AI & Data Science Intern",
+              organization: "Digital Egypt Pioneers Initiative (DEPI) - MCIT",
+              location: "Cairo, Egypt",
+              period: "2024 - Present",
+              badge: "Computational AI",
+              description: "Intensive government scholarship focusing on applied Artificial Intelligence and Data Science methodologies.",
+              responsibilities: [
+                "Developed data pipelines using Python, NumPy, and Pandas to clean and preprocess complex structured datasets.",
+                "Implemented machine learning models (Classification, Regression, Clustering) utilizing Scikit-learn with rigorous evaluation metrics.",
+                "Conducted Exploratory Data Analysis (EDA) and generated statistical visualizations using Matplotlib and Seaborn.",
+                "Explored neural networks, predictive algorithms, and their transformative applications in biomedical data modeling."
+              ],
+              tags: ["Python", "Pandas", "NumPy", "Scikit-Learn", "Machine Learning", "EDA", "Data Modeling"]
+            },
+            {
+              id: "nrc",
+              category: "molecular",
+              role: "Medical Molecular Genetics Trainee",
+              organization: "National Research Centre (NRC) - المركز القومي للبحوث",
+              location: "Dokki, Giza, Egypt",
+              period: "Summer 2024",
+              badge: "Clinical Molecular Genetics",
+              description: "Hands-on diagnostic molecular genetics training within the Human Genetics and Genome Research Division.",
+              responsibilities: [
+                "Executed genomic DNA and RNA extraction from human clinical peripheral blood samples following contamination-control protocols.",
+                "Mastered standard polymerase chain reaction (PCR) and real-time quantitative PCR (RT-qPCR) reaction setup, cycling conditions, and primer optimization.",
+                "Performed Agarose Gel Electrophoresis, ethidium bromide / GelRed staining, and ultraviolet transillumination documentation for fragment sizing.",
+                "Assisted in genetic screening workflows for hereditary disorders and interpreted molecular diagnostic banding patterns."
+              ],
+              tags: ["DNA/RNA Extraction", "PCR / RT-qPCR", "Gel Electrophoresis", "Genetic Screening", "Biosafety Level 2"]
+            },
+            {
+              id: "vsvri",
+              category: "pharma",
+              role: "Vaccine & Serum Research Trainee",
+              organization: "Veterinary Serum & Vaccine Research Institute (VSVRI)",
+              location: "Abbassia, Cairo, Egypt",
+              period: "Summer 2024",
+              badge: "Biological Manufacturing",
+              description: "Comprehensive practical exposure to biological product production, viral/bacterial antigen propagation, and quality assurance.",
+              responsibilities: [
+                "Studied industrial fermenters and cell culture propagation systems for biological antigen cultivation under strict sterile boundaries.",
+                "Observed downstream processing protocols including filtration, inactivation, stabilization, and lyophilization (freeze-drying).",
+                "Conducted in-vitro quality assurance tests, potency assays, and enzyme-linked immunosorbent assays (ELISA).",
+                "Learned biological sterility testing, endotoxin screening, and cold-chain supply protocols for veterinary vaccine batches."
+              ],
+              tags: ["Vaccine Production", "ELISA Assays", "Cell Culture", "Sterility Assurance", "Lyophilization", "Cold Chain"]
+            },
+            {
+              id: "cid",
+              category: "pharma",
+              role: "Pharmaceutical Production & QC Trainee",
+              organization: "Chemical Industries Development (CID) Company",
+              location: "Giza, Egypt",
+              period: "2023",
+              badge: "Industrial GMP & QC",
+              description: "Rigorous industrial training covering Good Manufacturing Practices (GMP) and analytical quality control laboratories.",
+              responsibilities: [
+                "Analyzed raw active pharmaceutical ingredients (APIs) and finished solid dosage formulations using UV-Vis Spectrophotometry and titration assays.",
+                "Monitored solid dosage manufacturing lines (granulation, compression, coating) adhering strictly to standard operating procedures (SOPs).",
+                "Performed pharmacopeial physical tests: tablet hardness, friability, disintegration time, and dissolution rate testing.",
+                "Documented batch production records (BPR), in-process quality control (IPQC) checkpoints, and GMP compliance inspections."
+              ],
+              tags: ["GMP Compliance", "UV-Vis Spectrophotometry", "Dissolution Testing", "IPQC", "Formulation", "Batch Records"]
+            },
+            {
+              id: "undercover",
+              category: "education",
+              role: "Scientific Instructor & Medical Educator",
+              organization: "Undercover Medics",
+              location: "Cairo, Egypt",
+              period: "2023 - Present",
+              badge: "Pedagogy & Communication",
+              description: "Delivering high-impact scientific education, breaking down advanced biochemical and pharmacological concepts for university students.",
+              responsibilities: [
+                "Authored structured educational curricula simplifying complex biochemical pathways, metabolic regulation, and clinical enzymology.",
+                "Conducted interactive tutorials, workshops, and question-solving sessions for medical and pharmacy students.",
+                "Mentored junior science students on research methodologies, scientific literature review, and academic presentation skills.",
+                "Synthesized multi-disciplinary clinical correlations connecting basic biochemistry to human pathological states."
+              ],
+              tags: ["Scientific Pedagogy", "Clinical Biochemistry", "Curriculum Design", "Public Speaking", "Mentorship"]
+            }
+          ]
+        },
+        education: {
+          sectionTag: "Academic Credentials",
+          title: "Education & Certifications",
+          subtitle: "Solid academic foundation from Egypt's top institution paired with certified technical credentials in emerging computational and scientific domains.",
+          degreeTitle: "Bachelor of Science in Chemistry & Biochemistry",
+          institution: "Cairo University - Faculty of Science",
+          year: "Senior Year (Expected Graduation: 2025/2026)",
+          department: "Department of Chemistry & Biochemistry",
+          overview: "Comprehensive 4-year honors curriculum covering fundamental and advanced chemical principles, bio-macromolecular mechanisms, clinical diagnostics, and instrumental analytical methods.",
+          keyCourses: "Key Advanced Coursework",
+          courses: [
+            "Clinical Biochemistry & Diagnostic Pathology",
+            "Enzymology & Metabolic Regulation",
+            "Molecular Biology & Recombinant DNA",
+            "Instrumental Analytical Chemistry & Chromatography",
+            "Bio-Organic & Medicinal Chemistry",
+            "Physical & Coordination Chemistry"
+          ],
+          certTitle: "Professional Certifications",
+          certSubtitle: "Click on any credential to inspect verification details",
+          certs: [
+            {
+              id: "cert-depi",
+              name: "AI & Data Science Specialist Track",
+              issuer: "Digital Egypt Pioneers Initiative (DEPI) - MCIT",
+              date: "2024",
+              skills: "Python, Machine Learning, Data Analytics, Model Validation",
+              description: "Official ministerial certification for intensive technical track covering predictive modeling, algorithm implementation, and statistical computing.",
+              credentialId: "DEPI-AIDS-2024-ATM"
+            },
+            {
+              id: "cert-nrc",
+              name: "Medical Molecular Genetics & Diagnostic PCR",
+              issuer: "National Research Centre (NRC)",
+              date: "2024",
+              skills: "DNA Extraction, PCR, Agarose Gel Electrophoresis, Biosafety",
+              description: "Comprehensive laboratory certification validating clinical proficiency in molecular diagnostic techniques and laboratory safety protocols.",
+              credentialId: "NRC-MMG-LAB-2024"
+            },
+            {
+              id: "cert-vsvri",
+              name: "Biological Vaccines & Sera Quality Assurance",
+              issuer: "Veterinary Serum & Vaccine Research Institute (VSVRI)",
+              date: "2024",
+              skills: "Antigen Production, ELISA, Sterility Testing, Bioreactors",
+              description: "Technical training certification verifying hands-on knowledge in biological production processes, cell culture, and quality assurance assays.",
+              credentialId: "VSVRI-QA-2024-88"
+            },
+            {
+              id: "cert-cid",
+              name: "Good Manufacturing Practices (GMP) & Pharma QC",
+              issuer: "Chemical Industries Development (CID) Company",
+              date: "2023",
+              skills: "UV-Vis Spectroscopy, Dissolution, IPQC, Pharmacopeial Standards",
+              description: "Industrial certification verifying mastery in pharmaceutical manufacturing standards, analytical instrumentation, and quality release protocols.",
+              credentialId: "CID-QC-GMP-2023"
+            },
+            {
+              id: "cert-soft",
+              name: "Professional Leadership, Agile & Communication Skills",
+              issuer: "Accredited Professional Development",
+              date: "2023 - 2024",
+              skills: "Scientific Presentation, Team Leadership, Problem Solving, Agile",
+              description: "Specialized soft skills credential certifying excellence in public speaking, collaborative team project management, and scientific communication.",
+              credentialId: "LDR-COMM-2024"
+            }
+          ]
+        },
+        skills: {
+          sectionTag: "Competency Matrix",
+          title: "Technical Skills & Tooling",
+          subtitle: "A balanced convergence of wet-lab analytical precision and modern computational intelligence.",
+          categories: {
+            all: "All Competencies",
+            biochem: "Biochemistry & Wet Lab",
+            molecular: "Molecular Genetics",
+            ai: "AI & Data Science",
+            pharma: "Pharma QC & GMP",
+            soft: "Soft Skills & Pedagogy",
+            languages: "Languages"
+          },
+          items: [
+            { name: "UV-Vis Spectrophotometry", category: "biochem", level: 95, desc: "Quantitative concentration and enzymatic kinetics" },
+            { name: "Enzymatic Assays & Titrations", category: "biochem", level: 90, desc: "Kinetic curves, Michaelis-Menten, wet-lab analysis" },
+            { name: "Clinical Chemistry Panels", category: "biochem", level: 88, desc: "Lipid, liver, and renal diagnostic profile interpretation" },
+            { name: "Chromatography (HPLC Fundamentals)", category: "biochem", level: 82, desc: "Stationary/mobile phase separation fundamentals" },
+            { name: "DNA / RNA Extraction Protocols", category: "molecular", level: 95, desc: "Blood and biological tissue genomic isolation" },
+            { name: "Standard & Real-Time PCR", category: "molecular", level: 92, desc: "Thermal cycler programming, primer validation, amplification" },
+            { name: "Agarose Gel Electrophoresis", category: "molecular", level: 94, desc: "Band sizing, transilluminator documentation, quality control" },
+            { name: "Biosafety Level 2 (BSL-2)", category: "molecular", level: 96, desc: "Aseptic technique, biosafety cabinet maintenance, hazard mitigation" },
+            { name: "Python for Data Science", category: "ai", level: 90, desc: "NumPy, Pandas, automated cleaning, tabular wrangling" },
+            { name: "Machine Learning (Scikit-Learn)", category: "ai", level: 85, desc: "Supervised classification, regression, model hyper-tuning" },
+            { name: "Exploratory Data Analysis (EDA)", category: "ai", level: 88, desc: "Matplotlib, Seaborn, multivariate statistical charts" },
+            { name: "Jupyter & Google Colab", category: "ai", level: 92, desc: "Reproducible research notebooks, workflow automation" },
+            { name: "Good Manufacturing Practices (GMP)", category: "pharma", level: 92, desc: "SOP adherence, cleanroom protocols, documentation" },
+            { name: "In-Process Quality Control (IPQC)", category: "pharma", level: 88, desc: "Dissolution, disintegration, friability, hardness" },
+            { name: "ELISA & Immunodiagnostics", category: "pharma", level: 86, desc: "Microplate assay detection, antibody-antigen binding" },
+            { name: "Sterility & Contamination Testing", category: "pharma", level: 90, desc: "Biological product quality assurance standards" },
+            { name: "Scientific Pedagogy & Teaching", category: "soft", level: 96, desc: "Delivering complex medical & biochemical workshops" },
+            { name: "Scientific Writing & Documentation", category: "soft", level: 92, desc: "Lab reports, protocol standardization, literature synthesis" },
+            { name: "Critical Thinking & Hypothesis Testing", category: "soft", level: 94, desc: "Root cause analysis and evidence-based problem solving" },
+            { name: "Cross-Functional Collaboration", category: "soft", level: 90, desc: "Team leadership in both clinical and software projects" }
+          ],
+          languagesList: [
+            { name: "Arabic", level: "Native / Mother Tongue", proficiency: 100, note: "Fluent in academic and colloquial communication" },
+            { name: "English", level: "Full Professional Working Proficiency", proficiency: 92, note: "Fluent scientific reading, writing, and presentation" }
+          ]
+        },
+        contact: {
+          sectionTag: "Initiate Communication",
+          title: "Let's Connect & Collaborate",
+          subtitle: "Open for postgraduate opportunities, laboratory research roles, bioinformatics projects, and data science collaborations.",
+          emailLabel: "Email Address",
+          emailValue: "athilataher@gmail.com",
+          phoneLabel: "Phone Number",
+          phoneValue: "01119900715",
+          locationLabel: "Location",
+          locationValue: "Cairo, Egypt",
+          linkedinLabel: "LinkedIn Profile",
+          linkedinUrl: "https://www.linkedin.com/in/athilataher",
+          linkedinDisplay: "linkedin.com/in/athilataher",
+          copyBtn: "Copy",
+          copiedMsg: "Copied!",
+          sendMessage: "Send Direct Message",
+          formName: "Your Full Name",
+          formEmail: "Your Email Address",
+          formSubject: "Subject / Collaboration Area",
+          formMessage: "Message Details",
+          formSubmit: "Transmit Message",
+          formSuccess: "Your message draft is ready to be sent via your email client!",
+          formPlaceholderName: "Dr. / Prof. / Engineer...",
+          formPlaceholderEmail: "name@organization.com",
+          formPlaceholderSubject: "Research collaboration / Job inquiry",
+          formPlaceholderMessage: "Describe the project or research scope..."
+        },
+        footer: {
+          rights: "All rights reserved.",
+          tagline: "Designed with scientific precision, typography-first architecture, and bilingual fluidity.",
+          academicAffiliation: "Faculty of Science, Cairo University"
+        },
+        modal: {
+          close: "Close Window",
+          verify: "Verify Credential",
+          credentialId: "Credential Reference ID",
+          skillsCovered: "Key Competencies Covered",
+          institution: "Issuing Organization",
+          date: "Issuance Date"
+        }
+      },
+      ar: {
+        nav: {
+          brand: "أثيلة طاهر محمود",
+          role: "كيمياء حيوية وذكاء اصطناعي",
+          about: "نبذة عامة",
+          experience: "الخبرات والتدريب",
+          education: "التعليم والشهادات",
+          skills: "المهارات التقنية",
+          contact: "تواصل معي",
+          resume: "تحميل السيرة الذاتية",
+          toggleTheme: "تبديل المظهر",
+          toggleLang: "Switch to English",
+          statusBadge: "متاحة للأبحاث وفرص العمل في المجال الطبي والبيانات"
+        },
+        hero: {
+          greeting: "مرحباً، أنا",
+          name: "أثيلة طاهر محمود",
+          titlePrefix: "الربط بين",
+          titleBiochem: "الكيمياء الحيوية الجزيئية",
+          titleAnd: "و",
+          titleAI: "الذكاء الاصطناعي",
+          subtitle: "طالبة في السنة النهائية بكلية العلوم - جامعة القاهرة (شعبة الكيمياء والكيمياء الحيوية). رائدة في الجمع بين الفحوصات التشخيصية المعملية وأبحاث اللقاحات ومراقبة الجودة الدوائية مع خوارزميات علوم البيانات وتعلم الآلة.",
+          primaryBtn: "استعراض مسار التدريب",
+          secondaryBtn: "عرض الشهادات المعتمدة",
+          contactBtn: "تواصل معي مباشرة",
+          copyEmail: "نسخ البريد الإلكتروني",
+          emailCopied: "تم نسخ البريد بنجاح!",
+          keyDisciplines: "مجالات التخصص المتكاملة",
+          badge1: "التشخيص الجزيئي المعملي",
+          badge2: "تعلم الآلة والبيانات (مبادرة DEPI)",
+          badge3: "مراقبة جودة اللقاحات والتصنيع الدوائي"
+        },
+        metrics: {
+          internships: { value: "+5", label: "تدريبات علمية متخصصة", sub: "المركز القومي للبحوث، DEPI، معهد الأمصال، CID" },
+          institution: { value: "جامعة القاهرة", label: "السنة النهائية بتفوق", sub: "بكالوريوس الكيمياء والكيمياء الحيوية" },
+          techDomain: { value: "الذكاء الاصطناعي", label: "أخصائية معتمدة من DEPI", sub: "وزارة الاتصالات وتكنولوجيا المعلومات" },
+          methodologies: { value: "100%", label: "كفاءة معملية ورقمية مزدوجة", sub: "تكامل التحاليل الرطبة والحوسبة الحيوية" }
+        },
+        experience: {
+          sectionTag: "المسار المهني والتطبيقي",
+          title: "الخبرات والتدريب المعملي",
+          subtitle: "خبرات عملية موثقة في أبرز المراكز البحثية القومية، وشركات الأدوية الرائدة، والمبادرات التكنولوجية المتطورة.",
+          filterAll: "جميع المجالات",
+          filterAI: "الذكاء الاصطناعي والبيانات",
+          filterMolecular: "التشخيص الجزيئي",
+          filterPharma: "مراقبة الجودة والأدوية",
+          filterEducation: "التدريس الأكاديمي",
+          items: [
+            {
+              id: "depi",
+              category: "ai",
+              role: "متدربة في الذكاء الاصطناعي وعلوم البيانات",
+              organization: "مبادرة رواد مصر الرقمية (DEPI) - وزارة الاتصالات",
+              location: "القاهرة، مصر",
+              period: "2024 - حتى الآن",
+              badge: "الحوسبة والذكاء الاصطناعي",
+              description: "منحة حكومية مكثفة ومتخصصة تركز على تطبيق أحدث منهجيات تعلم الآلة وعلوم البيانات المتقدمة.",
+              responsibilities: [
+                "بناء خطوط معالجة وتدفق البيانات باستخدام بايثون ومكتبتي NumPy و Pandas لتنظيف وهيكلة مجموعات البيانات المعقدة.",
+                "تطبيق نماذج تعلم الآلة (التصنيف، الانحدار، والتجميع العنقودي) باستخدام مكتبة Scikit-Learn مع إجراء التقييم الإحصائي الدقيق.",
+                "تنفيذ استكشاف البيانات والتحليل البصري (EDA) وبناء الرسوم البيانية التوضيحية باستخدام Matplotlib و Seaborn.",
+                "دراسة أسس الشبكات العصبية والخوارزميات التنبؤية وتطبيقاتها الحيوية في النمذجة البيوطبية."
+              ],
+              tags: ["Python", "Pandas", "NumPy", "Scikit-Learn", "تعلم الآلة", "تحليل البيانات", "النمذجة التنبؤية"]
+            },
+            {
+              id: "nrc",
+              category: "molecular",
+              role: "متدربة في الوراثة الجزيئية الطبية",
+              organization: "المركز القومي للبحوث (NRC)",
+              location: "الدقي، الجيزة، مصر",
+              period: "صيف 2024",
+              badge: "الوراثة الجزيئية السريرية",
+              description: "تدريب عملي تطبيقي في معامل شعبة الوراثة البشرية وأبحاث الجينوم لتشخيص الأمراض الوراثية.",
+              responsibilities: [
+                "استخلاص الحمض النووي (DNA) والحمض النووي الريبي (RNA) من عينات الدم البشري السريرية وفق أعلى معايير منع التلوث.",
+                "إعداد وتنفيذ تفاعلات البوليميراز المتسلسل التقليدي واللحظي (PCR & RT-qPCR)، وضبط الدورات الحرارية واختبار البادئات.",
+                "إجراء الفصل الكهربائي لهلام الأغاروز (Gel Electrophoresis) والتوثيق بالأشعة فوق البنفسجية لتحديد أحجام القطع الجينية.",
+                "المشاركة في الفحص الجيني للكشف عن الاضطرابات الوراثية وتفسير الأنماط الجزيئية لنتائج التحاليل."
+              ],
+              tags: ["استخلاص DNA/RNA", "تقنية PCR", "الفصل الكهربائي للجيل", "التشخيص الجزيئي", "السلامة الحيوية BSL-2"]
+            },
+            {
+              id: "vsvri",
+              category: "pharma",
+              role: "متدربة في أبحاث اللقاحات والأمصال",
+              organization: "معهد بحوث الأمصال واللقاحات البيطرية (VSVRI)",
+              location: "العباسية، القاهرة، مصر",
+              period: "صيف 2024",
+              badge: "التصنيع البيولوجي والحيوي",
+              description: "معايشة عملية متكاملة لخطوات إنتاج المستحضرات الحيوية، وإكثار المستضدات الفيروسية والبكتيرية، وضمان الجودة.",
+              responsibilities: [
+                "دراسة المفاعلات الحيوية وأنظمة المزارع الخلوية المستخدمة في إكثار مولدات الضد في بيئات معقمة تماماً.",
+                "متابعة مراحل المعالجة اللاحقة بما في ذلك الترشيح، والتعطيل الكيميائي، والاستقرارية، والتجفيف بالتجميد (Lyophilization).",
+                "إجراء اختبارات ضمان الجودة واختبارات المعايرة المناعية المرتبطة بالإنزيم (ELISA).",
+                "التدرب على معايير الفحص الميكروبي، واختبار العقامة، والتأكد من خلو المنتجات من السموم الداخلية، وإدارة سلاسل التبريد."
+              ],
+              tags: ["إنتاج اللقاحات", "فحوصات ELISA", "المزارع الخلوية", "اختبارات العقامة", "التجفيف بالتجميد", "سلسلة التبريد"]
+            },
+            {
+              id: "cid",
+              category: "pharma",
+              role: "متدربة في الإنتاج الدوائي ورقابة الجودة",
+              organization: "شركة تنمية الصناعات الكيماوية (CID)",
+              location: "الجيزة، مصر",
+              period: "2023",
+              badge: "ممارسات التصنيع الجيد GMP",
+              description: "تدريب صناعي مكثف يغطي تطبيق معايير التصنيع الجيد (GMP) والتحاليل المعملية لمراقبة الجودة.",
+              responsibilities: [
+                "تحليل المواد الفعالة الخام (APIs) والمنتجات الدوائية النهائية باستخدام مطيافية الأشعة فوق البنفسجية والمرئية (UV-Vis).",
+                "متابعة خطوط إنتاج الأشكال الصيدلانية الصلبة (التحبيب، والكبس، والكسوة) وفق إجراءات التشغيل القياسية (SOPs).",
+                "إجراء الاختبارات الفيزيائية المعتمدة دستورياً: صلابة الأقراص، الهشاشة، التفتت، ومعدل الذوبان الدوائي (Dissolution).",
+                "توثيق سجلات تشغيل الدفعات (BPR) ومحطات مراقبة الجودة أثناء التشغيل (IPQC) والتفتيش الدوري."
+              ],
+              tags: ["معايير GMP", "مطيافية UV-Vis", "اختبار الذوبان", "رقابة الجودة IPQC", "الصناعة الدوائية", "التوثيق الصيدلي"]
+            },
+            {
+              id: "undercover",
+              category: "education",
+              role: "مدرّسة ومحاضرة علمية",
+              organization: "منصة Undercover Medics",
+              location: "القاهرة، مصر",
+              period: "2023 - حتى الآن",
+              badge: "التعليم الطبي والتواصل العلمي",
+              description: "تقديم تدريس علمي مؤثر، وتبسيط المسارات البيوكيميائية المعقدة والمفاهيم الدوائية لطلاب الجامعات.",
+              responsibilities: [
+                "إعداد وتأليف مناهج تعليمية منظمة تبسط مسارات الأيض، والتنظيم الإنزيمي، والكيمياء الحيوية السريرية.",
+                "تقديم محاضرات تفاعلية وورش عمل وجلسات حل تدريبات تطبيقية لطلاب كليات الطب والصيدلة والعلوم.",
+                "إرشاد وتوجيه الطلاب في منهجيات البحث العلمي ومراجعة الأوراق البحثية ومهارات العرض الأكاديمي.",
+                "ربط المفاهيم الكيميائية الحيوية بالآليات المرضية والتشخيصية لتعميق الفهم الإكلينيكي لدى الطلاب."
+              ],
+              tags: ["التدريس العلمي", "الكيمياء الحيوية السريرية", "تصميم المناهج", "الإلقاء العلمي", "الإرشاد الأكاديمي"]
+            }
+          ]
+        },
+        education: {
+          sectionTag: "المؤهلات الأكاديمية",
+          title: "التعليم والشهادات المعتمدة",
+          subtitle: "أساس أكاديمي راسخ من أعرق الجامعات المصرية معزز بشهادات احترافية معتمدة في التقنيات المعملية والرقمية الحديثة.",
+          degreeTitle: "بكالوريوس العلوم في الكيمياء والكيمياء الحيوية",
+          institution: "جامعة القاهرة - كلية العلوم",
+          year: "السنة النهائية (التخرج المتوقع: 2025/2026)",
+          department: "قسم الكيمياء والكيمياء الحيوية",
+          overview: "برنامج دراسي متميز يمتد لأربع سنوات يغطي المبادئ الكيميائية المتقدمة، وآليات الجزيئات البيولوجية الكبيرة، والتشخيص السريري، والتحاليل الطيفية الآلية.",
+          keyCourses: "أبرز المقررات التخصصية المتقدمة",
+          courses: [
+            "الكيمياء الحيوية السريرية والباثولوجيا التشخيصية",
+            "علم الإنزيمات والتنظيم الأيضي",
+            "البيولوجيا الجزيئية وتكنولوجيا DNA المؤتلف",
+            "الكيمياء التحليلية الآلية والكروماتوجرافيا",
+            "الكيمياء العضوية الحيوية والدوائية",
+            "الكيمياء الفيزيائية والتناسقية"
+          ],
+          certTitle: "الشهادات والاعتمادات المهنية",
+          certSubtitle: "انقر على أي شهادة لاستعراض تفاصيل الاعتماد والتأكد من بياناتها",
+          certs: [
+            {
+              id: "cert-depi",
+              name: "مسار أخصائي الذكاء الاصطناعي وعلوم البيانات",
+              issuer: "مبادرة رواد مصر الرقمية (DEPI) - وزارة الاتصالات",
+              date: "2024",
+              skills: "بايثون، تعلم الآلة، تحليل البيانات، تقييم النماذج",
+              description: "شهادة وزارية رسمية لاجتياز المسار التقني المكثف المتخصص في النمذجة التنبؤية والخوارزميات والحوسبة الإحصائية.",
+              credentialId: "DEPI-AIDS-2024-ATM"
+            },
+            {
+              id: "cert-nrc",
+              name: "الوراثة الجزيئية الطبية وتقنيات PCR التشخيصية",
+              issuer: "المركز القومي للبحوث (NRC)",
+              date: "2024",
+              skills: "استخلاص الحمض النووي، تفاعل PCR، الفصل الكهربائي، السلامة المعملية",
+              description: "شهادة معملية متخصصة تثبت الكفاءة الإكلينيكية في إجراء فحوصات التشخيص الجزيئي وتطبيق بروتوكولات الأمان الحيوي.",
+              credentialId: "NRC-MMG-LAB-2024"
+            },
+            {
+              id: "cert-vsvri",
+              name: "ضمان جودة وتصنيع اللقاحات والمستحضرات البيولوجية",
+              issuer: "معهد بحوث الأمصال واللقاحات البيطرية (VSVRI)",
+              date: "2024",
+              skills: "إنتاج مولدات الضد، معايرة ELISA، اختبارات التعقيم، المفاعلات الحيوية",
+              description: "اعتماد تدريبي مهني يثبت الإلمام العملي بخطوات إنتاج اللقاحات والمزارع الخلوية وإجراء اختبارات مراقبة الجودة المناعية.",
+              credentialId: "VSVRI-QA-2024-88"
+            },
+            {
+              id: "cert-cid",
+              name: "ممارسات التصنيع الجيد (GMP) ومراقبة الجودة الدوائية",
+              issuer: "شركة تنمية الصناعات الكيماوية (CID)",
+              date: "2023",
+              skills: "مطيافية UV-Vis، اختبارات الذوبان، رقابة IPQC، معايير دساتير الأدوية",
+              description: "شهادة صناعية تؤكد إتقان المعايير العالمية لصناعة الدواء والأجهزة التحليلية وضمان صلاحية المستحضرات للتحرير الصيدلي.",
+              credentialId: "CID-QC-GMP-2023"
+            },
+            {
+              id: "cert-soft",
+              name: "القيادة المهنية ومهارات التواصل العلمي ومنهجيات Agile",
+              issuer: "برنامج التطوير المهني المعتمد",
+              date: "2023 - 2024",
+              skills: "الإلقاء العلمي، قيادة الفرق، التفكير التحليلي، منهجيات العمل المرن",
+              description: "شهادة تخصصية في المهارات الشخصية والقيادية، تثبت التميز في التحدث العام، وإدارة المشاريع التعاونية، والتواصل العلمي الفعال.",
+              credentialId: "LDR-COMM-2024"
+            }
+          ]
+        },
+        skills: {
+          sectionTag: "مصفوفة الكفاءات",
+          title: "المهارات والأدوات التقنية",
+          subtitle: "تكامل متوازن ومتميز بين الدقة المعملية التحليلية وقوة الحوسبة والذكاء الاصطناعي الحديث.",
+          categories: {
+            all: "جميع المهارات",
+            biochem: "الكيمياء الحيوية والمعمل",
+            molecular: "الوراثة الجزيئية",
+            ai: "الذكاء الاصطناعي والبيانات",
+            pharma: "مراقبة الجودة وتصنيع الأدوية",
+            soft: "المهارات الشخصية والتدريس",
+            languages: "اللغات"
+          },
+          items: [
+            { name: "مطيافية الأشعة فوق البنفسجية UV-Vis", category: "biochem", level: 95, desc: "القياس الكمي للتركيزات وحركية التفاعلات الإنزيمية" },
+            { name: "المقايسات الإنزيمية والمعايرات الكيميائية", category: "biochem", level: 90, desc: "منحنيات الحركية ونموذج ميكايليس-منتن والتحليل الرطب" },
+            { name: "لوحات الكيمياء السريرية التشخيصية", category: "biochem", level: 88, desc: "تفسير وظائف الكبد والكلى والدهون والبروتينات" },
+            { name: "أسس الكروماتوجرافيا السائلة (HPLC)", category: "biochem", level: 82, desc: "الفصل الكيميائي عبر الأطوار الثابتة والمتحركة" },
+            { name: "بروتوكولات استخلاص DNA و RNA", category: "molecular", level: 95, desc: "العزل الجينومي من الدم والأنسجة البيولوجية" },
+            { name: "تقنية تفاعل البوليميراز (PCR & RT-qPCR)", category: "molecular", level: 92, desc: "برمجة أجهزة التدوير الحراري واختبار البادئات والتضخيم" },
+            { name: "الفصل الكهربائي لهلام الأغاروز", category: "molecular", level: 94, desc: "تحديد أحجام القطع والتوثيق بالأشعة وتأكيد الجودة" },
+            { name: "معايير السلامة الحيوية (BSL-2)", category: "molecular", level: 96, desc: "تقنيات التعقيم والصيانة لكبائن الأمان الحيوي" },
+            { name: "لغة بايثون لعلوم البيانات (Python)", category: "ai", level: 90, desc: "مكتبات NumPy و Pandas لمعالجة وتنظيف الجداول" },
+            { name: "تعلم الآلة عبر مكتبة Scikit-Learn", category: "ai", level: 85, desc: "نماذج التصنيف والانحدار وضبط المعاملات الفائقة" },
+            { name: "التحليل الاستكشافي للبيانات (EDA)", category: "ai", level: 88, desc: "التمثيل البصري الإحصائي عبر Matplotlib و Seaborn" },
+            { name: "بيئات Jupyter Notebook و Colab", category: "ai", level: 92, desc: "توثيق الأبحاث القابلة لإعادة الإنتاج وأتمتة المهام" },
+            { name: "ممارسات التصنيع الجيد (GMP)", category: "pharma", level: 92, desc: "تطبيق إجراءات SOP ومعايير الغرف النظيفة والتوثيق" },
+            { name: "مراقبة الجودة أثناء التشغيل (IPQC)", category: "pharma", level: 88, desc: "فحص الذوبان والتفتت والصلابة والهشاشة للأقراص" },
+            { name: "المعايرة المناعية المرتبطة بالإنزيم (ELISA)", category: "pharma", level: 86, desc: "الكشف اللوني عن الأجسام المضادة والمستضدات" },
+            { name: "اختبارات العقامة ومكافحة التلوث", category: "pharma", level: 90, desc: "ضمان سلامة وخلو المستحضرات البيولوجية من البكتيريا" },
+            { name: "التدريس الطبي وتبسيط العلوم", category: "soft", level: 96, desc: "تقديم شروح مبسطة للمفاهيم الطبية والبيوكيميائية المعقدة" },
+            { name: "التوثيق والكتابة العلمية الرصينة", category: "soft", level: 92, desc: "كتابة التقارير المعملية ومراجعة الأوراق المنشورة" },
+            { name: "التفكير النقدي واختبار الفرضيات", category: "soft", level: 94, desc: "تحليل الأسباب الجذرية وحل المشكلات بالدليل العلمي" },
+            { name: "العمل الجماعي والقيادة التشاركية", category: "soft", level: 90, desc: "قيادة وتنسيق المشاريع المتداخلة في المعمل والحاسب" }
+          ],
+          languagesList: [
+            { name: "اللغة العربية", level: "اللغة الأم", proficiency: 100, note: "إتقان تام في الكتابة الأكاديمية والتواصل" },
+            { name: "اللغة الإنجليزية", level: "إتقان مهني احترافي كامل", proficiency: 92, note: "طلاقة في القراءة العلمية والأبحاث والعروض التقديمية" }
+          ]
+        },
+        contact: {
+          sectionTag: "بدء التواصل",
+          title: "لنتواصل ونتعاون معاً",
+          subtitle: "مستعدة لبحث الفرص الأكاديمية للدراسات العليا، والوظائف المعملية، ومشاريع الحوسبة الحيوية، وأبحاث علوم البيانات.",
+          emailLabel: "البريد الإلكتروني",
+          emailValue: "athilataher@gmail.com",
+          phoneLabel: "رقم الهاتف",
+          phoneValue: "01119900715",
+          locationLabel: "الموقع الجغرافي",
+          locationValue: "القاهرة، جمهورية مصر العربية",
+          linkedinLabel: "حساب لينكد إن",
+          linkedinUrl: "https://www.linkedin.com/in/athilataher",
+          linkedinDisplay: "linkedin.com/in/athilataher",
+          copyBtn: "نسخ",
+          copiedMsg: "تم النسخ!",
+          sendMessage: "إرسال رسالة مباشرة",
+          formName: "الاسم بالكامل",
+          formEmail: "بريدك الإلكتروني",
+          formSubject: "الموضوع / مجال التعاون",
+          formMessage: "تفاصيل الرسالة",
+          formSubmit: "إرسال الرسالة",
+          formSuccess: "تم تجهيز رسالتك لفتحها في برنامج البريد الخاص بك!",
+          formPlaceholderName: "د. / أ.د. / المهندس...",
+          formPlaceholderEmail: "name@example.com",
+          formPlaceholderSubject: "فرصة بحثية / تعاون علمي",
+          formPlaceholderMessage: "اكتب نبذة عن المشروع أو التعاون المطلوب..."
+        },
+        footer: {
+          rights: "جميع الحقوق محفوظة.",
+          tagline: "تم التصميم بدقة علمية رفيعة، وهندسة ترتكز على جماليات الخطوط والبيانات، مع دعم كامل للغتين.",
+          academicAffiliation: "كلية العلوم - جامعة القاهرة"
+        },
+        modal: {
+          close: "إغلاق النافذة",
+          verify: "التحقق من الشهادة",
+          credentialId: "الرقم المرجعي للشهادة",
+          skillsCovered: "أبرز المهارات التي تم التحقق منها",
+          institution: "الجهة المانحة",
+          date: "تاريخ الإصدار"
+        }
+      }
+    };
+
+    /* --- CONTEXTS --- */
+    const ThemeContext = createContext();
+    const LanguageContext = createContext();
+
+    function ThemeProvider({ children }) {
+      const [theme, setTheme] = useState(() => {
+        const saved = localStorage.getItem('athila_theme');
+        return saved || 'dark';
+      });
+
+      useEffect(() => {
+        const root = document.documentElement;
+        if (theme === 'dark') {
+          root.classList.add('dark');
+          root.classList.remove('light');
+        } else {
+          root.classList.remove('dark');
+          root.classList.add('light');
+        }
+        localStorage.setItem('athila_theme', theme);
+      }, [theme]);
+
+      const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+
+      return (
+        <ThemeContext.Provider value={{ theme, toggleTheme, isDark: theme === 'dark' }}>
+          {children}
+        </ThemeContext.Provider>
+      );
+    }
+
+    function LanguageProvider({ children }) {
+      const [lang, setLang] = useState(() => {
+        const saved = localStorage.getItem('athila_lang');
+        return saved || 'en';
+      });
+
+      const isRTL = lang === 'ar';
+      const t = translations[lang] || translations.en;
+
+      useEffect(() => {
+        document.documentElement.setAttribute('lang', lang);
+        document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+        localStorage.setItem('athila_lang', lang);
+      }, [lang, isRTL]);
+
+      const toggleLanguage = () => setLang(prev => prev === 'en' ? 'ar' : 'en');
+
+      return (
+        <LanguageContext.Provider value={{ lang, isRTL, t, toggleLanguage }}>
+          {children}
+        </LanguageContext.Provider>
+      );
+    }
+
+    /* --- BACKGROUND COMPONENT --- */
+    function ScientificBackdrop() {
+      return (
+        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+          <div className="absolute -top-40 -left-40 w-96 h-96 bg-emerald-500/10 dark:bg-emerald-500/15 rounded-full blur-3xl filter animate-pulse" />
+          <div className="absolute top-1/3 -right-40 w-[30rem] h-[30rem] bg-cyan-500/10 dark:bg-cyan-500/10 rounded-full blur-3xl filter" />
+          <div className="absolute -bottom-40 left-1/3 w-[28rem] h-[28rem] bg-indigo-500/10 dark:bg-indigo-500/10 rounded-full blur-3xl filter" />
+          <div className="absolute inset-0 scientific-grid opacity-60 dark:opacity-40" />
+
+          {/* Molecular SVG lattice */}
+          <svg className="absolute top-20 right-10 w-72 h-72 text-emerald-500/10 dark:text-emerald-400/5 transition-opacity" viewBox="0 0 200 200" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <polygon points="100,20 135,40 135,80 100,100 65,80 65,40" />
+            <polygon points="135,80 170,100 170,140 135,160 100,140 100,100" />
+            <polygon points="65,80 100,100 100,140 65,160 30,140 30,100" />
+            <circle cx="100" cy="20" r="3" fill="currentColor" />
+            <circle cx="135" cy="40" r="3" fill="currentColor" />
+            <circle cx="135" cy="80" r="4" fill="currentColor" />
+            <circle cx="100" cy="100" r="4" fill="currentColor" />
+            <circle cx="65" cy="80" r="3" fill="currentColor" />
+            <circle cx="65" cy="40" r="3" fill="currentColor" />
+            <circle cx="170" cy="100" r="3" fill="currentColor" />
+            <circle cx="170" cy="140" r="3" fill="currentColor" />
+            <circle cx="135" cy="160" r="3" fill="currentColor" />
+            <circle cx="100" cy="140" r="4" fill="currentColor" />
+            <circle cx="65" cy="160" r="3" fill="currentColor" />
+            <circle cx="30" cy="140" r="3" fill="currentColor" />
+            <circle cx="30" cy="100" r="3" fill="currentColor" />
+          </svg>
+        </div>
+      );
+    }
+
+    /* --- NAVBAR --- */
+    function Navbar() {
+      const { t, isRTL, toggleLanguage, lang } = useContext(LanguageContext);
+      const { isDark, toggleTheme } = useContext(ThemeContext);
+      const [scrolled, setScrolled] = useState(false);
+      const [menuOpen, setMenuOpen] = useState(false);
+
+      useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 20);
+        window.addEventListener('scroll', onScroll);
+        return () => window.removeEventListener('scroll', onScroll);
+      }, []);
+
+      const navLinks = [
+        { href: "#overview", label: t.nav.about },
+        { href: "#experience", label: t.nav.experience },
+        { href: "#education", label: t.nav.education },
+        { href: "#skills", label: t.nav.skills },
+        { href: "#contact", label: t.nav.contact },
+      ];
+
+      const scrollTo = (href) => {
+        setMenuOpen(false);
+        const el = document.querySelector(href);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      };
+
+      return (
+        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass-panel py-3 shadow-sm border-b' : 'bg-transparent py-5'}`}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between">
+              
+              {/* Typographic Monogram Logo */}
+              <div onClick={() => scrollTo('#overview')} className="group flex items-center gap-3 cursor-pointer">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-600 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform duration-200">
+                  <span className="font-mono tracking-tighter">ATM</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-bold text-base sm:text-lg tracking-tight text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors">
+                    {t.nav.brand}
+                  </span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    {t.nav.role}
+                  </span>
+                </div>
+              </div>
+
+              {/* Desktop Nav */}
+              <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+                {navLinks.map((link) => (
+                  <button
+                    key={link.href}
+                    onClick={() => scrollTo(link.href)}
+                    className="px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors"
+                  >
+                    {link.label}
+                  </button>
+                ))}
+              </nav>
+
+              {/* Controls */}
+              <div className="flex items-center gap-2 sm:gap-3">
+                {/* Language Switch */}
+                <button
+                  onClick={toggleLanguage}
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 hover:border-emerald-500 text-xs font-semibold text-slate-700 dark:text-slate-200 transition-colors shadow-sm"
+                >
+                  <svg className="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" strokeWidth="2"/>
+                    <path strokeWidth="2" d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                  </svg>
+                  <span>{lang === 'en' ? 'العربية' : 'EN'}</span>
+                </button>
+
+                {/* Theme Switch */}
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 hover:border-emerald-500 text-slate-700 dark:text-slate-200 transition-colors shadow-sm"
+                >
+                  {isDark ? (
+                    <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="5" strokeWidth="2"/>
+                      <path strokeWidth="2" strokeLinecap="round" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                  ) : (
+                    <svg className="w-4 h-4 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                  )}
+                </button>
+
+                {/* Contact CTA */}
+                <button
+                  onClick={() => scrollTo('#contact')}
+                  className="hidden sm:inline-flex items-center justify-center px-4 py-2 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm transition-all"
+                >
+                  {t.nav.contact}
+                </button>
+
+                {/* Mobile Menu */}
+                <button
+                  onClick={() => setMenuOpen(!menuOpen)}
+                  className="md:hidden p-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </button>
+              </div>
+
+            </div>
+
+            {menuOpen && (
+              <div className="md:hidden mt-3 p-4 glass-panel rounded-2xl shadow-xl border space-y-2">
+                {navLinks.map((link) => (
+                  <button
+                    key={link.href}
+                    onClick={() => scrollTo(link.href)}
+                    className="w-full text-left rtl:text-right px-3 py-2 rounded-lg text-sm font-medium text-slate-800 dark:text-slate-200 hover:bg-emerald-500/10 hover:text-emerald-500"
+                  >
+                    {link.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </header>
+      );
+    }
+
+    /* --- HERO --- */
+    function Hero() {
+      const { t, isRTL } = useContext(LanguageContext);
+      const [copied, setCopied] = useState(false);
+
+      const copyEmail = () => {
+        navigator.clipboard.writeText('athilataher@gmail.com');
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2500);
+      };
+
+      const scrollTo = (href) => {
+        const el = document.querySelector(href);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      };
+
+      return (
+        <section id="overview" className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto text-center space-y-8">
+              
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-50/80 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-xs sm:text-sm font-medium backdrop-blur-md shadow-sm">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+                <span>{t.nav.statusBadge}</span>
+              </div>
+
+              {/* Title & Name */}
+              <div className="space-y-4">
+                <h2 className="text-sm uppercase tracking-widest font-mono text-slate-500 dark:text-slate-400 font-semibold">
+                  {t.hero.greeting}
+                </h2>
+                <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15]">
+                  {t.hero.name}
+                </h1>
+                <p className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
+                  {t.hero.titlePrefix} {t.hero.titleBiochem} {t.hero.titleAnd} {t.hero.titleAI}
+                </p>
+              </div>
+
+              {/* Bio summary */}
+              <p className="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                {t.hero.subtitle}
+              </p>
+
+              {/* CTA buttons */}
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-2">
+                <button
+                  onClick={() => scrollTo('#experience')}
+                  className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold text-sm shadow-lg shadow-emerald-600/25 transition-all hover:scale-[1.02] flex items-center gap-2"
+                >
+                  <span>{t.hero.primaryBtn}</span>
+                  <svg className={`w-4 h-4 ${isRTL ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+
+                <button
+                  onClick={() => scrollTo('#education')}
+                  className="px-6 py-3.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white/70 dark:bg-slate-800/70 hover:border-emerald-500 text-slate-800 dark:text-slate-100 font-semibold text-sm transition-all"
+                >
+                  {t.hero.secondaryBtn}
+                </button>
+
+                <button
+                  onClick={copyEmail}
+                  className="px-5 py-3.5 rounded-xl border border-dashed border-emerald-500/50 bg-emerald-50/40 dark:bg-emerald-950/20 hover:bg-emerald-50 text-emerald-700 dark:text-emerald-300 font-semibold text-sm transition-all flex items-center gap-2"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                  </svg>
+                  <span>{copied ? t.hero.emailCopied : t.hero.copyEmail}</span>
+                </button>
+              </div>
+
+              {/* 3 Pillars */}
+              <div className="pt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl mx-auto">
+                <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 flex items-center justify-center gap-2.5 text-xs font-medium text-slate-700 dark:text-slate-300">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span>{t.hero.badge1}</span>
+                </div>
+                <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 flex items-center justify-center gap-2.5 text-xs font-medium text-slate-700 dark:text-slate-300">
+                  <span className="w-2 h-2 rounded-full bg-cyan-500"></span>
+                  <span>{t.hero.badge2}</span>
+                </div>
+                <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 flex items-center justify-center gap-2.5 text-xs font-medium text-slate-700 dark:text-slate-300">
+                  <span className="w-2 h-2 rounded-full bg-indigo-500"></span>
+                  <span>{t.hero.badge3}</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /* --- METRICS --- */
+    function QuickMetrics() {
+      const { t } = useContext(LanguageContext);
+      const metricsData = [
+        { value: t.metrics.internships.value, label: t.metrics.internships.label, sub: t.metrics.internships.sub, color: "from-emerald-500 to-emerald-600" },
+        { value: t.metrics.institution.value, label: t.metrics.institution.label, sub: t.metrics.institution.sub, color: "from-teal-500 to-cyan-600" },
+        { value: t.metrics.techDomain.value, label: t.metrics.techDomain.label, sub: t.metrics.techDomain.sub, color: "from-indigo-500 to-violet-600" },
+        { value: t.metrics.methodologies.value, label: t.metrics.methodologies.label, sub: t.metrics.methodologies.sub, color: "from-emerald-500 to-cyan-500" }
+      ];
+
+      return (
+        <section className="relative py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {metricsData.map((item, idx) => (
+                <div key={idx} className="p-6 rounded-2xl glass-panel glass-panel-hover border transition-all">
+                  <span className={`text-3xl sm:text-4xl font-black bg-gradient-to-r ${item.color} bg-clip-text text-transparent font-mono tracking-tight block mb-3`}>
+                    {item.value}
+                  </span>
+                  <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100">
+                    {item.label}
+                  </h4>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium leading-relaxed">
+                    {item.sub}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /* --- TIMELINE --- */
+    function ExperienceTimeline() {
+      const { t, isRTL } = useContext(LanguageContext);
+      const [filter, setFilter] = useState('all');
+
+      const tabs = [
+        { key: 'all', label: t.experience.filterAll },
+        { key: 'ai', label: t.experience.filterAI },
+        { key: 'molecular', label: t.experience.filterMolecular },
+        { key: 'pharma', label: t.experience.filterPharma },
+        { key: 'education', label: t.experience.filterEducation },
+      ];
+
+      const items = filter === 'all' ? t.experience.items : t.experience.items.filter(i => i.category === filter);
+
+      return (
+        <section id="experience" className="relative py-20 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mb-12">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono font-semibold tracking-wider uppercase text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-500/20 mb-3">
+                <span>//</span>
+                <span>{t.experience.sectionTag}</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                {t.experience.title}
+              </h2>
+              <p className="mt-3 text-base text-slate-600 dark:text-slate-400">
+                {t.experience.subtitle}
+              </p>
+            </div>
+
+            {/* Filter Tabs */}
+            <div className="flex flex-wrap items-center gap-2 mb-10 pb-2 border-b border-slate-200 dark:border-slate-800">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.key}
+                  onClick={() => setFilter(tab.key)}
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+                    filter === tab.key
+                      ? 'bg-emerald-600 text-white shadow-md'
+                      : 'bg-white/60 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 hover:text-emerald-500 border border-slate-200 dark:border-slate-700/60'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Timeline Cards */}
+            <div className="space-y-8">
+              {items.map((item, idx) => (
+                <div key={item.id} className="glass-panel glass-panel-hover rounded-2xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                        <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20">
+                          {item.badge}
+                        </span>
+                        <span className="text-xs font-mono text-slate-500">
+                          {item.location}
+                        </span>
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
+                        {item.role}
+                      </h3>
+                      <p className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 mt-0.5">
+                        {item.organization}
+                      </p>
+                    </div>
+
+                    <div className="inline-flex items-center px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-mono font-medium text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                      {item.period}
+                    </div>
+                  </div>
+
+                  <p className="text-sm text-slate-600 dark:text-slate-300 mb-5 leading-relaxed">
+                    {item.description}
+                  </p>
+
+                  <div className="space-y-2.5 mb-6">
+                    {item.responsibilities.map((resp, rIdx) => (
+                      <div key={rIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+                        <span className="text-emerald-500 font-bold">✓</span>
+                        <span className="leading-relaxed">{resp}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-slate-100 dark:border-slate-800/80">
+                    {item.tags.map((tag, tIdx) => (
+                      <span key={tIdx} className="px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700/60">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </section>
+      );
+    }
+
+    /* --- EDUCATION & CERTIFICATIONS --- */
+    function EducationCertifications({ onSelectCert }) {
+      const { t, isRTL } = useContext(LanguageContext);
+
+      return (
+        <section id="education" className="relative py-20 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div className="max-w-3xl mb-12">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono font-semibold tracking-wider uppercase text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-500/20 mb-3">
+                <span>//</span>
+                <span>{t.education.sectionTag}</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                {t.education.title}
+              </h2>
+              <p className="mt-3 text-base text-slate-600 dark:text-slate-400">
+                {t.education.subtitle}
+              </p>
+            </div>
+
+            {/* Academic Degree Card */}
+            <div className="glass-panel rounded-2xl p-6 sm:p-8 lg:p-10 border border-slate-200/80 dark:border-slate-800 mb-12 relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-500" />
+              
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-100 dark:border-slate-800/80">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30">
+                      {t.education.year}
+                    </span>
+                    <span className="text-xs font-mono text-slate-500">Cairo, Egypt</span>
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    {t.education.degreeTitle}
+                  </h3>
+                  <p className="text-base sm:text-lg font-semibold text-emerald-600 dark:text-emerald-400 mt-1">
+                    {t.education.institution}
+                  </p>
+                  <p className="text-xs sm:text-sm text-slate-500 font-mono mt-0.5">
+                    {t.education.department}
+                  </p>
+                </div>
+
+                <div className="shrink-0">
+                  <span className="inline-block px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs sm:text-sm font-mono font-bold text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700">
+                    Major: Chemistry & Biochemistry
+                  </span>
+                </div>
+              </div>
+
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 my-6 leading-relaxed max-w-4xl">
+                {t.education.overview}
+              </p>
+
+              {/* Coursework */}
+              <div>
+                <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold mb-3">
+                  {t.education.keyCourses}
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {t.education.courses.map((course, idx) => (
+                    <div key={idx} className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+                      <span className="text-emerald-500">◈</span>
+                      <span className="font-medium">{course}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Certifications Grid */}
+            <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+                  {t.education.certTitle}
+                </h3>
+                <p className="text-xs text-slate-500">
+                  {t.education.certSubtitle}
+                </p>
+              </div>
+              <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400">
+                {t.education.certs.length} Accredited Certificates
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {t.education.certs.map((cert) => (
+                <div
+                  key={cert.id}
+                  onClick={() => onSelectCert(cert)}
+                  className="glass-panel glass-panel-hover rounded-2xl p-6 border border-slate-200/80 dark:border-slate-800 cursor-pointer flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <span className="text-xs font-mono text-slate-500">{cert.date}</span>
+                      <span className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20">
+                        Verified
+                      </span>
+                    </div>
+                    <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors">
+                      {cert.name}
+                    </h4>
+                    <p className="text-xs font-medium text-slate-600 dark:text-slate-400 mt-1">
+                      {cert.issuer}
+                    </p>
+                  </div>
+
+                  <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                    <span className="text-xs font-mono text-slate-400 truncate max-w-[180px]">
+                      {cert.credentialId}
+                    </span>
+                    <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 group-hover:underline">
+                      <span>Details</span>
+                      <span>→</span>
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </section>
+      );
+    }
+
+    /* --- SKILLS --- */
+    function SkillsSection() {
+      const { t } = useContext(LanguageContext);
+      const [category, setCategory] = useState('all');
+
+      const cats = [
+        { key: 'all', label: t.skills.categories.all },
+        { key: 'biochem', label: t.skills.categories.biochem },
+        { key: 'molecular', label: t.skills.categories.molecular },
+        { key: 'ai', label: t.skills.categories.ai },
+        { key: 'pharma', label: t.skills.categories.pharma },
+        { key: 'soft', label: t.skills.categories.soft },
+      ];
+
+      const skills = category === 'all' ? t.skills.items : t.skills.items.filter(s => s.category === category);
+
+      return (
+        <section id="skills" className="relative py-20 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div className="max-w-3xl mb-12">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono font-semibold tracking-wider uppercase text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-500/20 mb-3">
+                <span>//</span>
+                <span>{t.skills.sectionTag}</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                {t.skills.title}
+              </h2>
+              <p className="mt-3 text-base text-slate-600 dark:text-slate-400">
+                {t.skills.subtitle}
+              </p>
+            </div>
+
+            {/* Tabs */}
+            <div className="flex flex-wrap items-center gap-2 mb-10 pb-2 border-b border-slate-200 dark:border-slate-800">
+              {cats.map((c) => (
+                <button
+                  key={c.key}
+                  onClick={() => setCategory(c.key)}
+                  className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+                    category === c.key
+                      ? 'bg-emerald-600 text-white shadow-md'
+                      : 'bg-white/60 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 hover:text-emerald-500 border border-slate-200 dark:border-slate-700/60'
+                  }`}
+                >
+                  {c.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Skills Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 mb-16">
+              {skills.map((skill, idx) => (
+                <div key={idx} className="glass-panel glass-panel-hover rounded-2xl p-5 border border-slate-200/80 dark:border-slate-800 space-y-3">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h4 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+                        {skill.name}
+                      </h4>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                        {skill.desc}
+                      </p>
+                    </div>
+                    <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shrink-0">
+                      {skill.level}%
+                    </span>
+                  </div>
+
+                  <div className="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full" style={{ width: `${skill.level}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Languages */}
+            <div>
+              <div className="mb-6">
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+                  {t.skills.categories.languages}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-500">
+                  Bilingual scientific communication proficiency
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {t.skills.languagesList.map((lang, idx) => (
+                  <div key={idx} className="glass-panel rounded-2xl p-6 border border-slate-200/80 dark:border-slate-800 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-lg font-bold text-slate-900 dark:text-white">
+                        {lang.name}
+                      </h4>
+                      <span className="text-xs font-mono font-semibold px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20">
+                        {lang.level}
+                      </span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                      {lang.note}
+                    </p>
+                    <div className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${lang.proficiency}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </section>
+      );
+    }
+
+    /* --- CONTACT --- */
+    function ContactSection() {
+      const { t } = useContext(LanguageContext);
+      const [copied, setCopied] = useState(null);
+      const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+      const [submitted, setSubmitted] = useState(false);
+
+      const copyText = (txt, type) => {
+        navigator.clipboard.writeText(txt);
+        setCopied(type);
+        setTimeout(() => setCopied(null), 2500);
+      };
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        const mailto = `mailto:athilataher@gmail.com?subject=${encodeURIComponent(
+          formData.subject || 'Portfolio Inquiry from ' + formData.name
+        )}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`;
+        window.location.href = mailto;
+        setSubmitted(true);
+        setTimeout(() => setSubmitted(false), 5000);
+      };
+
+      return (
+        <section id="contact" className="relative py-20 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div className="max-w-3xl mb-12">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono font-semibold tracking-wider uppercase text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-500/20 mb-3">
+                <span>//</span>
+                <span>{t.contact.sectionTag}</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                {t.contact.title}
+              </h2>
+              <p className="mt-3 text-base text-slate-600 dark:text-slate-400">
+                {t.contact.subtitle}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              
+              {/* Direct Info */}
+              <div className="lg:col-span-5 space-y-4">
+                {/* Email */}
+                <div className="glass-panel rounded-2xl p-6 border border-slate-200/80 dark:border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono uppercase text-slate-400 font-semibold">{t.contact.emailLabel}</span>
+                    <button onClick={() => copyText(t.contact.emailValue, 'email')} className="px-2.5 py-1 rounded text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">
+                      {copied === 'email' ? t.contact.copiedMsg : t.contact.copyBtn}
+                    </button>
+                  </div>
+                  <a href={`mailto:${t.contact.emailValue}`} className="block text-base sm:text-lg font-bold text-slate-900 dark:text-white hover:text-emerald-500 font-mono">
+                    {t.contact.emailValue}
+                  </a>
+                </div>
+
+                {/* Phone */}
+                <div className="glass-panel rounded-2xl p-6 border border-slate-200/80 dark:border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono uppercase text-slate-400 font-semibold">{t.contact.phoneLabel}</span>
+                    <button onClick={() => copyText(t.contact.phoneValue, 'phone')} className="px-2.5 py-1 rounded text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">
+                      {copied === 'phone' ? t.contact.copiedMsg : t.contact.copyBtn}
+                    </button>
+                  </div>
+                  <a href={`tel:${t.contact.phoneValue}`} className="block text-base sm:text-lg font-bold text-slate-900 dark:text-white hover:text-emerald-500 font-mono">
+                    {t.contact.phoneValue}
+                  </a>
+                </div>
+
+                {/* LinkedIn */}
+                <div className="glass-panel rounded-2xl p-6 border border-slate-200/80 dark:border-slate-800 space-y-2">
+                  <span className="text-xs font-mono uppercase text-slate-400 font-semibold">{t.contact.linkedinLabel}</span>
+                  <a href={t.contact.linkedinUrl} target="_blank" rel="noopener noreferrer" className="block text-base sm:text-lg font-bold text-slate-900 dark:text-white hover:text-cyan-500 font-mono break-all">
+                    {t.contact.linkedinDisplay} ↗
+                  </a>
+                </div>
+
+                {/* Location */}
+                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400">
+                  {t.contact.locationLabel}: <strong className="text-slate-800 dark:text-slate-200">{t.contact.locationValue}</strong>
+                </div>
+              </div>
+
+              {/* Form */}
+              <div className="lg:col-span-7">
+                <div className="glass-panel rounded-2xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+                    {t.contact.sendMessage}
+                  </h3>
+                  {submitted && (
+                    <div className="p-4 mb-6 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-200 text-xs sm:text-sm font-medium">
+                      {t.contact.formSuccess}
+                    </div>
+                  )}
+
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-slate-400 font-semibold mb-1">{t.contact.formName}</label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.name}
+                          onChange={e => setFormData({ ...formData, name: e.target.value })}
+                          className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-mono uppercase text-slate-400 font-semibold mb-1">{t.contact.formEmail}</label>
+                        <input
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={e => setFormData({ ...formData, email: e.target.value })}
+                          className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-mono uppercase text-slate-400 font-semibold mb-1">{t.contact.formSubject}</label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.subject}
+                        onChange={e => setFormData({ ...formData, subject: e.target.value })}
+                        className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-mono uppercase text-slate-400 font-semibold mb-1">{t.contact.formMessage}</label>
+                      <textarea
+                        rows="4"
+                        required
+                        value={formData.message}
+                        onChange={e => setFormData({ ...formData, message: e.target.value })}
+                        className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 text-white font-semibold text-sm shadow-md transition-all"
+                    >
+                      {t.contact.formSubmit}
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /* --- MODAL --- */
+    function CertificateModal({ cert, onClose }) {
+      const { t } = useContext(LanguageContext);
+      if (!cert) return null;
+
+      return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm" onClick={onClose}>
+          <div className="w-full max-w-xl glass-panel rounded-2xl p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900" onClick={e => e.stopPropagation()}>
+            <div className="flex items-start justify-between gap-4 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
+              <div>
+                <span className="text-xs font-mono font-semibold uppercase text-emerald-600 dark:text-emerald-400">
+                  {t.education.certTitle}
+                </span>
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mt-1">
+                  {cert.name}
+                </h3>
+                <p className="text-sm text-slate-500 mt-0.5">{cert.issuer}</p>
+              </div>
+              <button onClick={onClose} className="p-2 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                ✕
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <h4 className="text-xs font-mono uppercase text-slate-400 font-semibold">{t.modal.date}</h4>
+                <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{cert.date}</p>
+              </div>
+              <div>
+                <h4 className="text-xs font-mono uppercase text-slate-400 font-semibold">{t.modal.skillsCovered}</h4>
+                <div className="flex flex-wrap gap-1.5 mt-1.5">
+                  {cert.skills.split(',').map((s, i) => (
+                    <span key={i} className="px-2.5 py-1 rounded-md text-xs font-medium bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300">
+                      {s.trim()}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <h4 className="text-xs font-mono uppercase text-slate-400 font-semibold">Scope & Description</h4>
+                <p className="text-sm text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 p-3.5 rounded-xl border border-slate-100 dark:border-slate-800 mt-1">
+                  {cert.description}
+                </p>
+              </div>
+              <div className="p-3.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                <div>
+                  <span className="block text-[11px] font-mono text-slate-400 uppercase">{t.modal.credentialId}</span>
+                  <span className="text-xs font-mono font-bold text-slate-800 dark:text-slate-200">{cert.credentialId}</span>
+                </div>
+                <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200">
+                  Verified ✓
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+              <button onClick={onClose} className="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
+                {t.modal.close}
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    /* --- FOOTER --- */
+    function Footer() {
+      const { t } = useContext(LanguageContext);
+      return (
+        <footer className="relative py-12 border-t border-slate-200 dark:border-slate-800/80 bg-white/40 dark:bg-slate-950/60 backdrop-blur-md">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <p className="font-bold text-slate-900 dark:text-white text-sm">Athila Taher Mahmoud</p>
+              <p className="text-xs text-slate-500">{t.footer.academicAffiliation}</p>
+            </div>
+            <p className="text-xs text-slate-500 max-w-md text-center">{t.footer.tagline}</p>
+            <p className="text-xs font-mono text-slate-400">© 2025/2026. {t.footer.rights}</p>
+          </div>
+        </footer>
+      );
+    }
+
+    /* --- ROOT APP --- */
+    function App() {
+      const [selectedCert, setSelectedCert] = useState(null);
+
+      return (
+        <ThemeProvider>
+          <LanguageProvider>
+            <div className="min-h-screen relative flex flex-col font-sans">
+              <ScientificBackdrop />
+              <Navbar />
+              <main className="flex-grow z-10">
+                <Hero />
+                <QuickMetrics />
+                <ExperienceTimeline />
+                <EducationCertifications onSelectCert={setSelectedCert} />
+                <SkillsSection />
+                <ContactSection />
+              </main>
+              <Footer />
+              <CertificateModal cert={selectedCert} onClose={() => setSelectedCert(null)} />
+            </div>
+          </LanguageProvider>
+        </ThemeProvider>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
